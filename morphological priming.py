@@ -92,9 +92,9 @@ full_words = """
 full_word_list = full_words.split(" ")
 FULL_WORD_TRIALS = []
 for i in range(0,len(full_word_list),9):
-    FULL_WORD_TRIALS.append((full_word_list[i+2], full_word_list[i+1],full_word_list[i], "transparent"))
-    FULL_WORD_TRIALS.append((full_word_list[i+5], full_word_list[i+4],full_word_list[i+3], "opaque"))
-    FULL_WORD_TRIALS.append((full_word_list[i+8], full_word_list[i+7],full_word_list[i+6], "form"))
+    FULL_WORD_TRIALS.append((full_word_list[i+2], full_word_list[i],full_word_list[i+1], "transparent"))
+    FULL_WORD_TRIALS.append((full_word_list[i+5], full_word_list[i+3],full_word_list[i+4], "opaque"))
+    FULL_WORD_TRIALS.append((full_word_list[i+8], full_word_list[i+6],full_word_list[i+7], "form"))
 """
 
 
@@ -118,9 +118,13 @@ def build_trials():
             {"is_word": True, "prime": prime_rel,  "target": target, "condition": cond, "related": 1},
             {"is_word": True, "prime": prime_unrel,"target": target, "condition": cond, "related": 0},
         ]
-    # Nonwords only need one version each
-    for prime, _, target, cond in NONWORD_TRIALS:
-        trials.append({"is_word": False, "prime": prime, "target": target, "condition": cond, "related": 1})
+    # Nonwords 
+    for prime_rel, prime_unrel, target, cond in NONWORD_TRIALS:
+        # trials.append({"is_word": False, "prime": prime, "target": target, "condition": cond, "related": 1})
+        trials += [
+            {"is_word": False, "prime": prime_rel, "target": target, "condition": cond, "related": 1},
+            {"is_word": False, "prime": prime_unrel, "target": target, "condition": cond, "related": 0},
+        ]
 
     return trials
 
